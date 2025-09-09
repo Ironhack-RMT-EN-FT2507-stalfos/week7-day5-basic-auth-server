@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { validateToken } = require("../middlewares/auth.middlewares")
+const { validateToken, validateAdminRole } = require("../middlewares/auth.middlewares")
 
 // ℹ️ Test Route. Can be left and used for waking up the server if idle
 router.get("/", (req, res, next) => {
@@ -23,6 +23,13 @@ router.get("/private-route-example", validateToken, (req, res) => {
   console.log("req.payload", req.payload)
 
   res.send("all good, request processed!")
+
+})
+
+//* THIS IS AN EXAMPLE OF AN ADMIN ROUTE (THE USERS NEEDS TO BE LOGGED IT AND ALSO NEEDS TO BE AN ADMIN)
+router.get("/admin-route-example", validateToken, validateAdminRole, (req, res) => {
+
+  res.send("all good, request processed. You are logged in and you are and admin")
 
 })
 

@@ -19,6 +19,18 @@ function validateToken(req, res, next) {
 
 }
 
+function validateAdminRole(req, res, next) {
+
+  if (req.payload.role === "admin") {
+    next() // continue to the route
+  } else {
+    res.status(401).json({errorMessage: "you are not an admin"})
+  }
+
+}
+
+
 module.exports = {
-  validateToken
+  validateToken,
+  validateAdminRole
 }
